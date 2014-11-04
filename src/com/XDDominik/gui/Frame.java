@@ -29,25 +29,28 @@ public class Frame extends JFrame{
 		}
 	}
 	private BufferStrategy strat;
+	private int move = 0;
 	
-	public Frame(){
+	public Frame(int width , int heigt){
 		super("JTower");
+		//
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(width, height);
+		setSize(width, heigt);
 //		setBackground(Color.BLACK);
 		setUndecorated(true);
-//		setVisible(true);
+		setVisible(true);
 		setResizable(false);
 		setLocationRelativeTo(null);
 		addKeyListener(new KeyBoard());
-		
-		
-		
+//		requestFocus();
 	}
 	
 	public void creatStrat(){
 		createBufferStrategy(2);
 		strat = getBufferStrategy();
+	}
+	public void  move(){
+		move += 5;
 	}
 	
 	public void repaintScreen() {
@@ -55,11 +58,13 @@ public class Frame extends JFrame{
 		draw(g);
 		g.dispose();
 		strat.show();
+//		repaint();
 	}
 	
 	private void draw(Graphics g) {
-		g.drawImage(images, 10, 10, null);
+		g.setColor(Color.BLACK);
+		g.drawImage(images, 100 + move, 10, null);
 		
-		g.drawImage(image, 10, 200, null);
+		g.drawImage(image, 10 +move, 200, null);
 	}
 }

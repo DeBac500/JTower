@@ -19,23 +19,37 @@ public class JTower {
 //			System.out.println("DisplayMode: " + dm.getWidth() + "x" + dm.getHeight() + " - " + dm.getBitDepth() + "---" + dm.getRefreshRate());
 //		}
 		
-		Frame f = new Frame();
 		
-		DisplayMode displayMode = new DisplayMode(Frame.width, Frame.height, Frame.bit, Frame.refrash);
+		DisplayMode displayMode = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayModes()[0];
+//		DisplayMode displayMode = new DisplayMode(Frame.width, Frame.height, Frame.bit, Frame.refrash);
 		GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		GraphicsDevice device = environment.getDefaultScreenDevice();
+		
+		Frame f = new Frame(displayMode.getWidth(), displayMode.getHeight());
+		//f.addKeyListener(new KeyBoard());
 		
 		device.setFullScreenWindow(f);
 		device.setDisplayMode(displayMode);
 		
+		f.setVisible(false);
+		f.setVisible(true);
+		
+//		device.getFullScreenWindow().addKeyListener(new KeyBoard());
+		
 		f.creatStrat();
 		
+		
+		System.out.println("Vor");
 		long lastFrame = System.currentTimeMillis();
 		while(true){
-			
 			if(KeyBoard.isKeyPressed(KeyEvent.VK_ESCAPE))
 				//TODO besser beenden
 				System.exit(0);
+			
+			if(KeyBoard.isKeyPressed(KeyEvent.VK_A))
+				System.exit(0);
+			if(KeyBoard.isKeyPressed(KeyEvent.VK_D))
+				f.move();
 			
 			long thisFrame = System.currentTimeMillis();
 			float timeSinceLastFrame = ((float)(thisFrame-lastFrame))/1000f;
