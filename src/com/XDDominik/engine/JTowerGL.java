@@ -59,6 +59,7 @@ public class JTowerGL {
 		glMatrixMode(GL_MODELVIEW);
 		
 		glDisable(GL_DEPTH_TEST);
+		glEnable(GL_TEXTURE_2D);
 		
 		glClearColor(0, 0, 0, 0);
 	}
