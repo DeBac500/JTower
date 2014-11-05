@@ -18,7 +18,7 @@ public class JTowerGL {
 		
 		gameLoop();
 		
-		cleanUp();
+		cleanUp(0);
 	}
 	
 	public static void getInput(){
@@ -55,7 +55,7 @@ public class JTowerGL {
 	public static void initGL(){
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		glOrtho(0, Display.getWidth(), 0, Display.getHeight(), -1, 1);
+		glOrtho(0, Display.getWidth(),Display.getHeight(), 0, -1, 1);
 		glMatrixMode(GL_MODELVIEW);
 		
 		glDisable(GL_DEPTH_TEST);
@@ -67,6 +67,7 @@ public class JTowerGL {
 	public static void initDisplay(){
 		try {
 			Display.setDisplayMode(new DisplayMode(800, 600));
+			Display.setTitle("JTower :D");
 			Display.create();
 			Keyboard.create();
 			Display.setVSyncEnabled(true);
@@ -76,8 +77,9 @@ public class JTowerGL {
 		}
 	}
 	
-	public static void cleanUp(){
+	public static void cleanUp(int stat){
 		Display.destroy();
 		Keyboard.destroy();
+		System.exit(stat);
 	}
 }
