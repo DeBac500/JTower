@@ -6,7 +6,9 @@ import static org.lwjgl.opengl.GL12.*;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.ByteBuffer;
 
 import javax.imageio.ImageIO;
@@ -17,10 +19,10 @@ import org.lwjgl.BufferUtils;
 public class TextureLoader {
 	private static final int BYTES_PER_PIXEL = 4;//3 for RGB, 4 for RGBA
 	
-	public static int loadTexture(String path) throws IOException{
+	public static int loadTexture(InputStream path) throws IOException{
 		int textureID = glGenTextures();
 		
-		BufferedImage image = ImageIO.read(new File(path));
+		BufferedImage image = ImageIO.read(path);
 		
 		int[] pixels = new int[image.getHeight() * image.getWidth()];
 		image.getRGB(0, 0, image.getWidth(), image.getHeight(), pixels, 0, image.getWidth());
@@ -49,6 +51,10 @@ public class TextureLoader {
 		glBindTexture(GL_TEXTURE_2D, 0);
 		
 		return textureID;
+	}
+	
+	public static int loadTexture(String path) throws IOException{
+		return loadTexture(new FileInputStream(new File(path)));
 	}
 
 }
