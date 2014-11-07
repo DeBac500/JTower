@@ -3,9 +3,32 @@ package com.XDDominik.engine;
 public abstract class GameObjekt {
 	private float x,y,sx,sy;
 	
+	public GameObjekt(){
+		this.x = 0;
+		this.y = 0;
+		this.sx = 0;
+		this.sy = 0;
+	}
+	
+	public GameObjekt(float x , float y){
+		this.x = x;
+		this.y = y;
+		this.sx = 0;
+		this.sy = 0;
+	}
+	
+	public GameObjekt(float x , float y, float sx , float sy){
+		this.x = x;
+		this.y = y;
+		this.sx = sx;
+		this.sy = sy;
+	}
+	
 	public abstract void update();
 	
 	public abstract void render();
+	
+	public abstract void input();
 
 	public float getX() {
 		return x;

@@ -2,8 +2,11 @@ package com.XDDominik.engine;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
+
+import com.XDDominik.game.JTower_Game;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -23,7 +26,7 @@ public class JTowerGL {
 	}
 	
 	public static void getInput(){
-		game.getInput();
+		game.input();
 	}
 	
 	public static void update(){
@@ -74,6 +77,7 @@ public class JTowerGL {
 			Display.setTitle("JTower :D");
 			Display.create();
 			Keyboard.create();
+			Mouse.create();
 			Display.setVSyncEnabled(true);
 		} catch (LWJGLException e) {
 			// TODO Auto-generated catch block
@@ -84,6 +88,7 @@ public class JTowerGL {
 	public static void cleanUp(int stat){
 		Display.destroy();
 		Keyboard.destroy();
+		Mouse.destroy();
 		System.exit(stat);
 	}
 }

@@ -17,22 +17,23 @@ import org.lwjgl.BufferUtils;
 
 
 public class TextureLoader {
+
 	private static final int BYTES_PER_PIXEL = 4;//3 for RGB, 4 for RGBA
 	
-	public static int loadTexture(InputStream path) throws IOException{
+	public static int loadTexture(InputStream path , int x, int y , int w, int h) throws IOException{
 		int textureID = glGenTextures();
 		
 		BufferedImage image = ImageIO.read(path);
 		
-		int[] pixels = new int[image.getHeight() * image.getWidth()];
-		image.getRGB(0, 0, image.getWidth(), image.getHeight(), pixels, 0, image.getWidth());
+		int[] pixels = new int[h * w];
+		pixels = image.getRGB(x, y, w, h, pixels, 0, w);
 		
-		ByteBuffer buffer = BufferUtils.createByteBuffer(image.getWidth() * image.getHeight() * 4);
+		ByteBuffer buffer = BufferUtils.createByteBuffer(w * h * 4);
 		
 		int pixel = 0;
-		for(int y  = 0;  y < image.getHeight(); y++){
-			for(int x  = 0; x < image.getWidth(); x++){
-				pixel = pixels[y*image.getWidth() + x];
+		for(int y1  = 0;  y1 < h; y1++){
+			for(int x1  = 0; x1 < w; x1++){
+				pixel = pixels[y1*w + x1];
 				buffer.put((byte)  ((pixel >> 16) & 0xFF));
 				buffer.put((byte)  ((pixel >> 8) & 0xFF));
 				buffer.put((byte)  ((pixel) & 0xFF));
@@ -47,14 +48,14 @@ public class TextureLoader {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, image.getWidth(), image.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
 		glBindTexture(GL_TEXTURE_2D, 0);
 		
 		return textureID;
 	}
 	
-	public static int loadTexture(String path) throws IOException{
-		return loadTexture(new FileInputStream(new File(path)));
+	public static int loadTexture(String path, int x, int y , int w, int h) throws IOException{
+		return loadTexture(new FileInputStream(new File(path)),  x,  y ,  w,  h);
 	}
 
 }
