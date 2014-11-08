@@ -4,7 +4,8 @@ package com.XDDominik.game;
 public class JTower_Game {
 	private GameField feld;
 	public JTower_Game() {
-		feld = new GameField(); 
+		feld = new GameField("level_01"); 
+//		feld = new GameField(); 
 	}
 
 	public void input() {
