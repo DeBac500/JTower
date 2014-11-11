@@ -6,12 +6,13 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
+import com.XDDominik.editor.JTower_Editor;
 import com.XDDominik.game.JTower_Game;
 
 import static org.lwjgl.opengl.GL11.*;
 
 public class JTowerGL {
-	private static JTower_Game game;
+	private static Main main, back;
 	
 	public static void main(String[] args){
 		
@@ -26,11 +27,16 @@ public class JTowerGL {
 	}
 	
 	public static void getInput(){
-		game.input();
+		if(Keyboard.isKeyDown(Keyboard.KEY_E) && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)){
+			Main t = back;
+			back = main;
+			main = t;
+		}
+		main.input();
 	}
 	
 	public static void update(){
-		game.update();
+		main.update();
 	}
 	
 	public static void render(){
@@ -38,7 +44,7 @@ public class JTowerGL {
 		glLoadIdentity();
 		
 		
-		game.render();
+		main.render();
 		
 		Display.update();
 		Display.sync(60);
@@ -53,7 +59,8 @@ public class JTowerGL {
 	}
 	
 	public static void initGame(){
-		game = new JTower_Game();
+		main = new JTower_Game();
+		back = new JTower_Editor();
 	}
 	
 	public static void initGL(){

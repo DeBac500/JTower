@@ -1,7 +1,9 @@
 package com.XDDominik.game;
 
+import com.XDDominik.engine.Main;
 
-public class JTower_Game {
+
+public class JTower_Game implements Main{
 	private GameField feld;
 	public JTower_Game() {
 		feld = new GameField("level_01"); 
