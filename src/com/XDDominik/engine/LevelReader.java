@@ -15,7 +15,7 @@ public class LevelReader {
 		lev = null;
 		level = new Properties();
 		try {
-			level.load(new FileInputStream("Level/" + levelname + ".properties"));
+			level.load(new FileInputStream(System.getProperty("user.home") + "/JTower/Level/" + levelname + ".properties"));
 			lev = level.getProperty("level");
 //			System.out.println(lev);
 			return level.getProperty("size");
@@ -48,14 +48,10 @@ public class LevelReader {
 		anz = 0;
 		for(int i = 0; i < lev.length(); i++){
 			if(Character.isDigit(lev.charAt(i))){
-//				System.out.println("Zahl: " + lev.charAt(i) + " Expo: " +  (int)Math.pow(10, i) + " erge: " + (Character.getNumericValue(lev.charAt(i)) * (int)Math.pow(10, i)));
-				anz += (Character.getNumericValue(lev.charAt(i)) * (int)Math.pow(10, i));
-//				System.out.println("ANNZZZ: " + anz);
+				anz = 10*anz + (Character.getNumericValue(lev.charAt(i)));
 			}else{
 				c = lev.charAt(i);
 				lev = lev.substring(i+1);
-//				System.out.println("anz: " + anz + " | c: " + c);
-//				System.out.println(lev);
 				break;
 			}
 		}

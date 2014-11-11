@@ -61,7 +61,4 @@ public abstract class GameObjekt {
 	public void setSy(float sy) {
 		this.sy = sy;
 	}
-	
-	
-	
 }
