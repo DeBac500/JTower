@@ -13,6 +13,8 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class JTowerGL {
 	private static Main main, back;
+	private static boolean switched = false;
+	private static long activated = 0;
 	
 	public static void main(String[] args){
 		
@@ -27,11 +29,16 @@ public class JTowerGL {
 	}
 	
 	public static void getInput(){
-		if(Keyboard.isKeyDown(Keyboard.KEY_E) && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)){
+		if(Keyboard.isKeyDown(Keyboard.KEY_E) && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) && !switched){
 			Main t = back;
 			back = main;
 			main = t;
+			switched = true;
+			activated = System.currentTimeMillis();
 		}
+		
+		if(System.currentTimeMillis() - activated > 400)
+			switched = false;
 		main.input();
 	}
 	
