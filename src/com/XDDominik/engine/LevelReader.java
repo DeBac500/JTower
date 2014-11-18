@@ -15,7 +15,8 @@ public class LevelReader {
 		lev = null;
 		level = new Properties();
 		try {
-			level.load(new FileInputStream(System.getProperty("user.dir") + "/Level/" + levelname + ".properties"));
+			level.load(new FileInputStream(System.getProperty("user.home") + "/JTower/Level/" + levelname + ".properties"));//mac
+//			level.load(new FileInputStream(System.getProperty("user.dir") + "/Level/" + levelname + ".properties"));//windows
 			lev = level.getProperty("level");
 //			System.out.println(lev);
 			return level.getProperty("size");
